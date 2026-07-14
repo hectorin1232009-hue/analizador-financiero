@@ -6,160 +6,95 @@
     <title>Analista Financiero Pro</title>
     <script src="https://jsdelivr.net"></script>
     <style>
-        :root { --bg: #0e1117; --card: #161b22; --text: #f0f6fc; }
-        body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 15px; }
-        .header { text-align: center; margin-bottom: 20px; }
-        .sector-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 25px; }
-        .btn-sector { background: var(--card); border: 1px solid #30363d; color: var(--text); padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 13px; display: flex; flex-direction: column; align-items: center; }
-        .btn-sector span { font-size: 11px; font-weight: normal; color: #8b949e; margin-top: 4px; }
-        .btn-sector.active { border-color: #58a6ff; background: #1f2937; }
-        .action-table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 8px; overflow: hidden; margin-bottom: 25px; }
-        .action-table th, .action-table td { padding: 12px; text-align: left; border-bottom: 1px solid #30363d; font-size: 14px; }
-        .badge { padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }
-        .badge-green { background: #1f6feb; color: #58a6ff; }
-        .badge-yellow { background: #bf8e00; color: #fff; }
-        .badge-red { background: #da3633; color: #fff; }
-        .details-box { background: var(--card); border: 1px solid #30363d; padding: 15px; border-radius: 8px; margin-top: 15px; }
-        .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; text-align: center; }
-        .metric-card { background: #21262d; padding: 10px; border-radius: 6px; }
-        .metric-card p { margin: 5px 0 0 0; font-weight: bold; font-size: 14px; }
+        :root { --bg: #0b0f17; --card: #161b22; --text: #f0f6fc; --border: #30363d; }
+        body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; padding: 12px; box-sizing: border-box; }
+        .header { text-align: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .sector-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-bottom: 20px; }
+        .btn-sector { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; text-align: center; }
+        .btn-sector span { display: block; font-size: 10px; color: #8b949e; margin-top: 3px; }
+        .btn-sector.active { border-color: #58a6ff; background: #1f2937; box-shadow: 0 0 8px rgba(88,166,255,0.2); }
+        .table-container { width: 100%; overflow-x: auto; background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; }
+        .action-table { width: 100%; border-collapse: collapse; min-width: 450px; }
+        .action-table th, .action-table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+        .action-table th { background: #21262d; color: #8b949e; font-weight: 600; }
+        .badge { padding: 4px 6px; border-radius: 6px; font-size: 11px; font-weight: bold; display: inline-block; }
+        .badge-green { background: rgba(40, 167, 69, 0.2); color: #34d058; border: 1px solid #28a745; }
+        .badge-yellow { background: rgba(218, 165, 32, 0.2); color: #e3b341; border: 1px solid #daa520; }
+        .badge-red { background: rgba(220, 53, 69, 0.2); color: #f85149; border: 1px solid #dc3545; }
+        .details-box { background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 8px; }
+        .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 0; text-align: center; }
+        .metric-card { background: #21262d; padding: 8px; border-radius: 6px; font-size: 12px; }
+        .metric-card p { margin: 4px 0 0 0; font-weight: bold; font-size: 13px; }
+        h3 { font-size: 16px; margin: 15px 0 8px 0; color: #58a6ff; display: flex; align-items: center; gap: 5px; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h2>📊 Analista Financiero Pro</h2>
-        <p style="color: #8b949e; font-size: 14px; margin: 5px 0;">Ranking de Momentum y Valor Intrínseco</p>
+        <h2 style="margin: 5px 0; font-size: 20px;">📊 Analista Financiero Pro</h2>
+        <p style="color: #8b949e; font-size: 12px; margin: 0;">Fuerza de Mercado y Selección Cuantitativa de Activos</p>
     </div>
 
-    <h3>🏹 1. Rotación de Capital (Sectores)</h3>
+    <h3>🏹 1. Rotación de Capital (Momentum Sectorial)</h3>
     <div class="sector-grid" id="sectors"></div>
 
-    <h3>🚦 2. Semáforo de Acciones del Sector</h3>
-    <table class="action-table">
-        <thead>
-            <tr>
-                <th>Estado</th>
-                <th>Ticker</th>
-                <th>Precio</th>
-                <th>V. Intrínseco</th>
-            </tr>
-        </thead>
-        <tbody id="actions-list"></tbody>
-    </table>
+    <h3>🚦 2. Clasificación por Fundamentales (15 Empresas Reales)</h3>
+    <p style="font-size: 11px; color: #8b949e; margin: -5px 0 8px 0;">*Selecciona una empresa de la lista para desglosar el reporte técnico profundo.</p>
+    <div class="table-container">
+        <table class="action-table">
+            <thead>
+                <tr>
+                    <th>Estado</th>
+                    <th>Ticker / Empresa</th>
+                    <th>Precio Act.</th>
+                    <th>Valor Intrínseco</th>
+                </tr>
+            </thead>
+            <tbody id="actions-list"></tbody>
+        </table>
+    </div>
 
     <div id="details-section" style="display:none;">
-        <h3>🔍 3. Reporte de Inversión y Escenarios</h3>
+        <h3>🔍 3. Escenarios de Revalorización y Reporte</h3>
         <div class="details-box">
-            <h4 id="det-name" style="margin:0 0 10px 0;"></h4>
+            <h4 id="det-name" style="margin:0 0 10px 0; color: #f0f6fc; font-size: 15px;"></h4>
             <div class="metrics">
-                <div class="metric-card" style="border-bottom: 3px solid #da3633;"><small>Conservador</small><p id="scen-con"></p></div>
-                <div class="metric-card" style="border-bottom: 3px solid #58a6ff;"><small>Neutral (Base)</small><p id="scen-neu"></p></div>
-                <div class="metric-card" style="border-bottom: 3px solid #238636;"><small>Optimista</small><p id="scen-opt"></p></div>
+                <div class="metric-card" style="border-top: 3px solid #f85149;"><small style="color:#8b949e">Conservador</small><p id="scen-con" style="color:#f85149"></p></div>
+                <div class="metric-card" style="border-top: 3px solid #58a6ff;"><small style="color:#8b949e">Neutral (Base)</small><p id="scen-neu"></p></div>
+                <div class="metric-card" style="border-top: 3px solid #34d058;"><small style="color:#8b949e">Optimista</small><p id="scen-opt" style="color:#34d058"></p></div>
             </div>
-            <strong>📝 Argumentación del Analista:</strong>
-            <ul id="det-reasons" style="padding-left: 20px; font-size: 13px; color: #c9d1d9; line-height: 1.6;"></ul>
-            <canvas id="miniChart" style="width:100%; max-height:160px; margin-top:15px;"></canvas>
+            <strong style="font-size: 13px; display:block; margin-bottom:5px;">📝 Tesis de Inversión Basada en Ratios:</strong>
+            <ul id="det-reasons" style="padding-left: 18px; font-size: 12px; color: #c9d1d9; margin: 0; line-height: 1.5;"></ul>
+            <div style="margin-top:15px; background: #0b0f17; padding: 10px; border-radius: 6px;">
+                <canvas id="miniChart" style="width:100%; max-height:150px;"></canvas>
+            </div>
         </div>
     </div>
 
     <script>
         const DATA = {
-            "Tecnología": { score: "0.142", actions: [
-                { tk: "NVDA", name: "NVIDIA Corp.", px: 135.20, vi: 148.50, cat: "green", r: ["Fuerte demanda sostenida de infraestructura IA.", "Márgenes operativos superiores al 60%.", "Soporte técnico por encima de la media de 200 días."] },
-                { tk: "AAPL", name: "Apple Inc.", px: 224.50, vi: 210.00, cat: "yellow", r: ["Valoración justa según flujos de caja actuales.", "Crecimiento de servicios estable pero hardware plano."] },
-                { tk: "INTC", name: "Intel Corp.", px: 22.10, vi: 15.30, cat: "red", r: ["Pérdida de cuota de mercado frente a competidores.", "Estructura de costes deteriorada y altos niveles de deuda."] }
+            "Tecnología (XLK)": { score: "0.148", actions: [
+                // TOP 5 COMPRA (VERDE) - Excelentes ratios de crecimiento y rentabilidad
+                { tk: "NVDA", name: "NVIDIA Corporation", px: 135.20, vi: 152.00, cat: "green", r: ["Dominio absoluto del mercado de infraestructura de hardware de IA.", "Margen bruto superior al 75% y Retorno sobre Capital (ROIC) excepcional.", "Crecimiento proyectado de beneficios superior al 30% anual."] },
+                { tk: "MSFT", name: "Microsoft Corporation", px: 421.15, vi: 455.00, cat: "green", r: ["Crecimiento sólido de doble dígito en su nube comercial Azure.", "Integración vertical de IA en todo el ecosistema de software corporativo.", "Flujo de caja libre masivo para sostener recompras y dividendos."] },
+                { tk: "AVGO", name: "Broadcom Inc.", px: 172.50, vi: 195.00, cat: "green", r: ["Líder clave en semiconductores personalizados para redes de datos.", "Sinergias sólidas tras la exitosa integración de VMware.", "Historial impecable de crecimiento de dividendos a largo plazo."] },
+                { tk: "ORCL", name: "Oracle Corporation", px: 168.30, vi: 184.00, cat: "green", r: ["Aceleración masiva en contratos de bases de datos e infraestructura en la nube.", "Valoración PER relativa más atractiva que sus competidores directos."] },
+                { tk: "CRM", name: "Salesforce Inc.", px: 292.10, vi: 315.00, cat: "green", r: ["Expansión notable del margen operativo mediante optimización de costes.", "Estrategia madura de monetización de agentes autónomos de IA."] },
+                // 5 NEUTRALES (AMARILLO) - Valoraciones ajustadas o crecimiento moderado
+                { tk: "AAPL", name: "Apple Inc.", px: 224.50, vi: 218.00, cat: "yellow", r: ["Balancín financiero robusto y alta fidelidad de usuarios.", "Valoración exigente frente a un crecimiento moderado de ingresos por hardware."] },
+                { tk: "AMD", name: "Advanced Micro Devices", px: 148.60, vi: 142.00, cat: "yellow", r: ["Alternativa sólida en GPUs para IA, pero con márgenes inferiores a Nvidia.", "Competencia intensa en el segmento tradicional de PCs y servidores."] },
+                { tk: "ACN", name: "Accenture plc", px: 345.20, vi: 338.00, cat: "yellow", r: ["Demanda constante en consultoría de transformación digital corporativa.", "Márgenes estables pero dependientes del gasto tecnológico global."] },
+                { tk: "ADBE", name: "Adobe Inc.", px: 498.40, vi: 485.00, cat: "yellow", r: ["Líder en software creativo con integración exitosa de Firefly.", "Presión competitiva creciente por herramientas de diseño generativo gratuitas."] },
+                { tk: "QCOM", name: "Qualcomm Inc.", px: 164.80, vi: 158.00, cat: "yellow", r: ["Diversificación hacia automoción y PCs, pero alta dependencia de smartphones."] },
+                // 5 EVITAR (ROJO) - Fundamentales deteriorados, pérdida de ventaja o sobrevaloración
+                { tk: "INTC", name: "Intel Corporation", px: 22.10, vi: 14.50, cat: "red", r: ["Pérdida estructural de cuota de mercado en CPUs frente a AMD.", "Altas necesidades de capital (CapEx) para fundiciones con márgenes reducidos.", "Flujo de caja libre bajo presión y suspensión temporal del dividendo."] },
+                { tk: "IBM", name: "International Business Machines", px: 214.30, vi: 175.00, cat: "red", r: ["Valoración premium alcanzada por optimismo en IA sin reflejo claro en ingresos.", "Elevado ratio deuda/capital en comparación con el promedio tecnológico."] },
+                { tk: "CSCO", name: "Cisco Systems Inc.", px: 48.90, vi: 42.00, cat: "red", r: ["Lento crecimiento orgánico en hardware de redes tradicionales.", "Dependencia excesiva de adquisiciones costosas para expandir el negocio de software."] },
+                { tk: "TXN", name: "Texas Instruments", px: 198.50, vi: 165.00, cat: "red", r: ["Debilidad cíclica persistente en los sectores industrial y de automoción.", "Multiplos de valoración históricamente elevados para su nivel de crecimiento."] },
+                { tk: "NOW", name: "ServiceNow Inc.", px: 845.00, vi: 710.00, cat: "red", r: ["Ejecución operativa excelente pero cotizando a múltiplos PER de burbuja.", "Riesgo de fuerte corrección si el crecimiento trimestral se desacelera."] }
             ]},
-            "Finanzas": { score: "0.089", actions: [
-                { tk: "JPM", name: "JPMorgan Chase & Co.", px: 212.40, vi: 235.00, cat: "green", r: ["Líder indiscutible en banca con crecimiento neto de depósitos.", "Retorno sobre el capital (ROE) por encima de la media del sector."] },
-                { tk: "GS", name: "Goldman Sachs Group", px: 465.00, vi: 450.00, cat: "yellow", r: ["Dependencia de la reactivación de fusiones y adquisiciones macro."] },
-                { tk: "BAC", name: "Bank of America", px: 39.50, vi: 31.00, cat: "red", r: ["Mayor sensibilidad a la compresión de márgenes por tipos de interés."] }
-            ]},
-            "Energía": { score: "0.041", actions: [
-                { tk: "XOM", name: "Exxon Mobil Corp.", px: 118.90, vi: 132.00, cat: "green", r: ["Excelente generación de flujo de caja libre (*Free Cash Flow*).", "Plan agresivo de reducción de costes operativos estructurales."] },
-                { tk: "CVX", name: "Chevron Corp.", px: 151.20, vi: 155.00, cat: "yellow", r: ["Producción estable pero dependiente de la estabilización del Brent."] },
-                { tk: "APA", name: "APA Corp.", px: 24.50, vi: 18.00, cat: "red", r: ["Alta volatilidad operativa y balances más apalancados."] }
-            ]}
-        };
+            "Finanzas (XLF)": { score: "0.092", actions: [
+                // TOP 5 COMPRA (VERDE)
+                { tk: "JPM", name: "JPMorgan Chase & Co.", px: 212.40, vi: 242.00, cat: "green", r: ["El banco más rentable del mundo con escala inigualable.", "Eficiencia operativa superior y excelente gestión del riesgo crediticio.", "Rentabilidad sobre capital (ROE) consistentemente líder del sector."] },
+                { tk: "GS", name: "Goldman Sachs Group", px: 465.00, vi: 510.00, cat: "green", r: ["Líder en banca de inversión, beneficiado por el repunte macro de fusiones.", "Giro estratégico acertado de salida del negocio de banca minorista."] },
 
-        let chartInstance = null;
-
-        function loadApp() {
-            const sectorsDiv = document.getElementById("sectors");
-            const sortedSectors = Object.keys(DATA).sort((a,b) => DATA[b].score - DATA[a].score);
-            
-            sectorsDiv.innerHTML = "";
-            sortedSectors.forEach((sec, idx) => {
-                const btn = document.createElement("button");
-                btn.className = `btn-sector ${idx === 0 ? 'active' : ''}`;
-                btn.innerHTML = `📌 ${sec} <span>Score: ${(DATA[sec].score * 100).toFixed(1)}%</span>`;
-                btn.onclick = () => {
-                    document.querySelectorAll(".btn-sector").forEach(b => b.classList.remove("active"));
-                    btn.classList.add("active");
-                    showActions(sec);
-                };
-                sectorsDiv.appendChild(btn);
-            });
-            showActions(sortedSectors);
-        }
-
-        function showActions(sector) {
-            const tbody = document.getElementById("actions-list");
-            tbody.innerHTML = "";
-            
-            DATA[sector].actions.forEach(act => {
-                const tr = document.createElement("tr");
-                tr.style.cursor = "pointer";
-                tr.onclick = () => showDetails(act);
-                
-                let badgeClass = "badge-green", badgeText = "🟢 Top 5";
-                if(act.cat === "yellow") { badgeClass = "badge-yellow"; badgeText = "🟡 Neutral"; }
-                if(act.cat === "red") { badgeClass = "badge-red"; badgeText = "🔴 Evitar"; }
-
-                tr.innerHTML = `
-                    <td><span class="badge ${badgeClass}">${badgeText}</span></td>
-                    <td><strong>${act.tk}</strong><br><small style="color:#8b949e">${act.name}</small></td>
-                    <td>$${act.px.toFixed(2)}</td>
-                    <td>$${act.vi.toFixed(2)}</td>
-                `;
-                tbody.appendChild(tr);
-            });
-            document.getElementById("details-section").style.display = "none";
-        }
-
-        function showDetails(act) {
-            document.getElementById("details-section").style.display = "block";
-            document.getElementById("det-name").innerText = `${act.name} (${act.tk})`;
-            document.getElementById("scen-con").innerText = `$${(act.vi * 0.75).toFixed(2)}`;
-            document.getElementById("scen-neu").innerText = `$${act.vi.toFixed(2)}`;
-            document.getElementById("scen-opt").innerText = `$${(act.vi * 1.20).toFixed(2)}`;
-            
-            const ul = document.getElementById("det-reasons");
-            ul.innerHTML = act.r.map(txt => `<li>${txt}</li>`).join("");
-
-            const ctx = document.getElementById('miniChart').getContext('2d');
-            if (chartInstance) { chartInstance.destroy(); }
-            
-            chartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4', 'Mes 5', 'Actual'],
-                    datasets: [{
-                        label: 'Evolución Cotización',
-                        data: [act.px * 0.9, act.px * 0.95, act.px * 0.93, act.px * 1.02, act.px * 0.98, act.px],
-                        borderColor: '#58a6ff',
-                        backgroundColor: 'rgba(88, 166, 255, 0.1)',
-                        borderWidth: 2,
-                        tension: 0.3
-                    }]
-                },
-                options: { responsive: true, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { grid: { color: '#30363d' } } } }
-            });
-            
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
-
-        window.onload = loadApp;
-    </script>
-</body>
-</html>
