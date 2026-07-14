@@ -10,8 +10,8 @@
         body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; padding: 12px; box-sizing: border-box; }
         .header { text-align: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
         .sector-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin-bottom: 20px; }
-        .btn-sector { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; text-align: center; }
-        .btn-sector span { display: block; font-size: 10px; color: #8b949e; margin-top: 3px; }
+        .btn-sector { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 11px; text-align: center; }
+        .btn-sector span { display: block; font-size: 9px; color: #8b949e; margin-top: 3px; }
         .btn-sector.active { border-color: #58a6ff; background: #1f2937; box-shadow: 0 0 8px rgba(88,166,255,0.2); }
         .table-container { width: 100%; overflow-x: auto; background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; }
         .action-table { width: 100%; border-collapse: collapse; min-width: 400px; }
@@ -25,7 +25,7 @@
         .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 0; text-align: center; }
         .metric-card { background: #21262d; padding: 8px; border-radius: 6px; font-size: 12px; }
         .metric-card p { margin: 4px 0 0 0; font-weight: bold; font-size: 13px; }
-        h3 { font-size: 16px; margin: 15px 0 8px 0; color: #58a6ff; display: flex; align-items: center; gap: 5px; }
+        h3 { font-size: 15px; margin: 15px 0 8px 0; color: #58a6ff; display: flex; align-items: center; gap: 5px; }
     </style>
 </head>
 <body>
@@ -65,8 +65,8 @@
             </div>
             <strong style="font-size: 13px; display:block; margin-bottom:5px;">📝 Tesis de Inversión Basada en Ratios:</strong>
             <ul id="det-reasons" style="padding-left: 18px; font-size: 12px; color: #c9d1d9; margin: 0; line-height: 1.5;"></ul>
-            <div style="margin-top:15px; background: #0b0f17; padding: 10px; border-radius: 6px;">
-                <canvas id="miniChart" style="width:100%; max-height:150px;"></canvas>
+            <div style="margin-top:15px; background: #0b0f17; padding: 10px; border-radius: 6px; height:160px; position:relative;">
+                <canvas id="miniChart"></canvas>
             </div>
         </div>
     </div>
@@ -74,30 +74,31 @@
     <script>
         const DATA = {
             "Tecnología": { score: "0.148", actions: [
-                { tk: "NVDA", name: "NVIDIA Corporation", px: 135.20, vi: 152.00, cat: "green", r: ["Dominio absoluto del mercado de infraestructura de hardware de IA.", "Margen bruto superior al 75% y Retorno sobre Capital (ROIC) excepcional."] },
-                { tk: "MSFT", name: "Microsoft Corporation", px: 421.15, vi: 455.00, cat: "green", r: ["Crecimiento sólido de doble dígito en su nube comercial Azure.", "Integración vertical de IA en todo el ecosistema de software corporativo."] },
-                { tk: "AVGO", name: "Broadcom Inc.", px: 172.50, vi: 195.00, cat: "green", r: ["Líder clave en semiconductores personalizados para redes de datos.", "Historial impecable de crecimiento de dividendos a largo plazo."] },
-                { tk: "ORCL", name: "Oracle Corporation", px: 168.30, vi: 184.00, cat: "green", r: ["Aceleración masiva en contratos de bases de datos e infraestructura en la nube."] },
-                { tk: "CRM", name: "Salesforce Inc.", px: 292.10, vi: 315.00, cat: "green", r: ["Expansión notable del margen operativo mediante optimización de costes."] },
-                { tk: "AAPL", name: "Apple Inc.", px: 224.50, vi: 218.00, cat: "yellow", r: ["Balancín financiero robusto y alta fidelidad de usuarios.", "Valoración exigente frente a un crecimiento moderado de ingresos."] },
-                { tk: "AMD", name: "Advanced Micro Devices", px: 148.60, vi: 142.00, cat: "yellow", r: ["Alternativa sólida en GPUs para IA, pero con márgenes inferiores a Nvidia."] },
-                { tk: "ACN", name: "Accenture plc", px: 345.20, vi: 338.00, cat: "yellow", r: ["Demanda constante en consultoría de transformación digital corporativa."] },
-                { tk: "ADBE", name: "Adobe Inc.", px: 498.40, vi: 485.00, cat: "yellow", r: ["Líder en software creativo con integración de Firefly."] },
-                { tk: "QCOM", name: "Qualcomm Inc.", px: 164.80, vi: 158.00, cat: "yellow", r: ["Diversificación hacia automoción y PCs, pero alta dependencia de smartphones."] },
-                { tk: "INTC", name: "Intel Corporation", px: 22.10, vi: 14.50, cat: "red", r: ["Pérdida estructural de cuota de mercado en CPUs frente a AMD.", "Altas necesidades de capital para fundiciones con márgenes reducidos."] },
-                { tk: "IBM", name: "International Business Machines", px: 214.30, vi: 175.00, cat: "red", r: ["Elevado ratio deuda/capital en comparación con el promedio tecnológico."] },
-                { tk: "CSCO", name: "Cisco Systems Inc.", px: 48.90, vi: 42.00, cat: "red", r: ["Lento crecimiento orgánico en hardware de redes tradicionales."] },
-                { tk: "TXN", name: "Texas Instruments", px: 198.50, vi: 165.00, cat: "red", r: ["Debilidad cíclica persistente en los sectores industrial y de automoción."] },
-                { tk: "NOW", name: "ServiceNow Inc.", px: 845.00, vi: 710.00, cat: "red", r: ["Cotizando a múltiplos PER históricamente altos para su nivel de crecimiento."] }
+                { tk: "NVDA", name: "NVIDIA Corporation", px: 135.20, vi: 152.00, cat: "green", r: ["Dominio absoluto del mercado de hardware para IA.", "Margen bruto superior al 75% y ROIC excepcional."] },
+                { tk: "MSFT", name: "Microsoft Corporation", px: 421.15, vi: 455.00, cat: "green", r: ["Crecimiento de doble dígito sostenido en la nube Azure.", "Integración sólida de IA comercial en software de oficina."] },
+                { tk: "AVGO", name: "Broadcom Inc.", px: 172.50, vi: 195.00, cat: "green", r: ["Líder clave en semiconductores para redes de datos de alta velocidad.", "Historial impecable de dividendos crecientes año tras año."] },
+                { tk: "ORCL", name: "Oracle Corporation", px: 168.30, vi: 184.00, cat: "green", r: ["Aceleración notable en contratos de infraestructura en la nube."] },
+                { tk: "CRM", name: "Salesforce Inc.", px: 292.10, vi: 315.00, cat: "green", r: ["Expansión del margen operativo mediante optimización de costes contables."] },
+                { tk: "AAPL", name: "Apple Inc.", px: 224.50, vi: 218.00, cat: "yellow", r: ["Fuerte balance financiero y alta retención de usuarios.", "Valoración premium frente a un crecimiento plano de hardware."] },
+                { tk: "AMD", name: "Advanced Micro Devices", px: 148.60, vi: 142.00, cat: "yellow", r: ["Alternativa real en GPUs, pero con márgenes inferiores a Nvidia."] },
+                { tk: "ACN", name: "Accenture plc", px: 345.20, vi: 338.00, cat: "yellow", r: ["Demanda constante de consultoría para migración digital corporativa."] },
+                { tk: "ADBE", name: "Adobe Inc.", px: 498.40, vi: 485.00, cat: "yellow", r: ["Software creativo líder con sólida adopción de herramientas de IA."] },
+                { tk: "QCOM", name: "Qualcomm Inc.", px: 164.80, vi: 158.00, cat: "yellow", r: ["Diversificación hacia automoción, pero alta dependencia de móviles."] },
+                { tk: "INTC", name: "Intel Corporation", px: 22.10, vi: 14.50, cat: "red", r: ["Pérdida estructural de ventaja tecnológica y cuota frente a AMD.", "Altas necesidades de capital para fundiciones sin márgenes claros."] },
+                { tk: "IBM", name: "International Business Machines", px: 214.30, vi: 175.00, cat: "red", r: ["Elevado ratio de endeudamiento en comparación con competidores."] },
+                { tk: "CSCO", name: "Cisco Systems Inc.", px: 48.90, vi: 42.00, cat: "red", r: ["Bajo crecimiento orgánico en hardware de redes tradicionales."] },
+                { tk: "TXN", name: "Texas Instruments", px: 198.50, vi: 165.00, cat: "red", r: ["Debilidad cíclica persistente en pedidos industriales globales."] },
+                { tk: "NOW", name: "ServiceNow Inc.", px: 845.00, vi: 710.00, cat: "red", r: ["Cotizando a múltiplos de valoración excesivamente exigentes."] }
             ]},
             "Finanzas": { score: "0.092", actions: [
-                { tk: "JPM", name: "JPMorgan Chase & Co.", px: 212.40, vi: 242.00, cat: "green", r: ["El banco más rentable del mundo con escala inigualable.", "Eficiencia operativa superior y excelente gestión del riesgo."] },
-                { tk: "GS", name: "Goldman Sachs Group", px: 465.00, vi: 510.00, cat: "green", r: ["Líder en banca de inversión, beneficiado por el repunte macro de fusiones."] },
-                { tk: "PGR", name: "The Progressive Corp.", px: 254.10, vi: 280.00, cat: "green", r: ["Líder en seguros de auto con ventajas algorítmicas de tarificación."] },
-                { tk: "AXP", name: "American Express Co.", px: 268.30, vi: 295.00, cat: "green", r: ["Base de clientes de alto poder adquisitivo inmune a desaceleraciones."] },
-                { tk: "MS", name: "Morgan Stanley", px: 104.50, vi: 116.00, cat: "green", r: ["Negocio de gestión de patrimonio muy estable que genera ingresos recurrentes."] },
-                { tk: "BRK-B", name: "Berkshire Hathaway Inc.", px: 452.20, vi: 460.00, cat: "yellow", r: ["Fortaleza financiera masiva y diversificación defensiva extrema."] },
-                { tk: "BLK", name: "BlackRock Inc.", px: 895.00, vi: 910.00, cat: "yellow", r: ["Líder global en gestión de activos con flujos estables hacia iShares."] },
-                { tk: "C", name: "Citigroup Inc.", px: 62.40, vi: 65.00, cat: "yellow", r: ["Proceso de reestructuración profundo en marcha para recortar gastos."] },
-                { tk: "SPGI", name: "S&P Global Inc.", px: 488.50, vi: 495.00, cat: "yellow", r: ["Foso económico indiscutible en calificaciones crediticias globales."] },
-                { tk: "SCHW", name: "Charles Schwab Corp.", px: 68.10, vi: 70.50, cat: "yellow", r: ["Recuperación gradual de la fuga de depósitos hacia monetarios."] },
+                { tk: "JPM", name: "JPMorgan Chase & Co.", px: 212.40, vi: 242.00, cat: "green", r: ["El banco más rentable del mundo con ventajas de escala claras.", "Eficiencia operativa superior y excelente control de riesgo de mora."] },
+                { tk: "GS", name: "Goldman Sachs Group", px: 465.00, vi: 510.00, cat: "green", r: ["Líder global en asesoramiento de fusiones y adquisiciones corporativas."] },
+                { tk: "PGR", name: "The Progressive Corp.", px: 254.10, vi: 280.00, cat: "green", r: ["Líder en seguros de auto con ventajas algorítmicas de precios."] },
+                { tk: "AXP", name: "American Express Co.", px: 268.30, vi: 295.00, cat: "green", r: ["Clientes de alto poder adquisitivo estables ante ciclos económicos."] },
+                { tk: "MS", name: "Morgan Stanley", px: 104.50, vi: 116.00, cat: "green", r: ["Modelo enfocado en gestión de patrimonios con comisiones recurrentes."] },
+                { tk: "BRK-B", name: "Berkshire Hathaway Inc.", px: 452.20, vi: 460.00, cat: "yellow", r: ["Fortaleza financiera masiva pero con dificultades para desplegar efectivo."] },
+                { tk: "BLK", name: "BlackRock Inc.", px: 895.00, vi: 910.00, cat: "yellow", r: ["Líder en fondos indexados iShares con márgenes estables bajo presión."] },
+                { tk: "C", name: "Citigroup Inc.", px: 62.40, vi: 65.00, cat: "yellow", r: ["Plan de reestructuración profundo en marcha para reducir costes."] },
+                { tk: "SPGI", name: "S&P Global Inc.", px: 488.50, vi: 495.00, cat: "yellow", r: ["Foso regulatorio indiscutible en calificaciones crediticias globales."] },
+                { tk: "SCHW", name: "Charles Schwab Corp.", px: 68.10, vi: 70.50, cat: "yellow", r: ["Estabilización en la retención de depósitos minoristas de clientes."] },
+                { tk: "BAC", name: "Bank of America Corp.", px: 39.50, vi: 32.00, cat: "red", r: ["Cartera masiva de bonos a largo plazo retenidos a bajo rendimiento."] },
