@@ -60,7 +60,7 @@
             <h4 id="det-name" style="margin:0 0 10px 0; color: #f0f6fc; font-size: 15px;"></h4>
             <div class="metrics">
                 <div class="metric-card" style="border-top: 3px solid #f85149;"><small style="color:#8b949e">Conservador</small><p id="scen-con" style="color:#f85149"></p></div>
-                <div class="metric-card" style="border-top: 3px solid #58a6ff;"><small style="color:#8b949e">Neutral (Base)</small><p id="scen-neu"></p></div>
+                <div class="metric-card" style="border-top: 3px solid #58a6ff;"><small style="color:#8b949e">Neutral (Base)</small><p id="scen-neu" style="color:#58a6ff"></p></div>
                 <div class="metric-card" style="border-top: 3px solid #34d058;"><small style="color:#8b949e">Optimista</small><p id="scen-opt" style="color:#34d058"></p></div>
             </div>
             <strong style="font-size: 13px; display:block; margin-bottom:5px;">📝 Tesis de Inversión Basada en Ratios:</strong>
@@ -74,7 +74,7 @@
     <script>
         const DATA = {
             "Tecnología": { score: "0.148", actions: [
-                { tk: "NVDA", name: "NVIDIA Corporation", px: 135.20, vi: 152.00, cat: "green", r: ["Dominio absoluto del mercado de infraestructura de hardware de IA.", "Margen bruto superior al 75% y Retorno sobre Capital (ROIC) excepcional.", "Crecimiento proyectado de beneficios superior al 30% anual."] },
+                { tk: "NVDA", name: "NVIDIA Corporation", px: 135.20, vi: 152.00, cat: "green", r: ["Dominio absoluto del mercado de infraestructura de hardware de IA.", "Margen bruto superior al 75% y Retorno sobre Capital (ROIC) excepcional."] },
                 { tk: "MSFT", name: "Microsoft Corporation", px: 421.15, vi: 455.00, cat: "green", r: ["Crecimiento sólido de doble dígito en su nube comercial Azure.", "Integración vertical de IA en todo el ecosistema de software corporativo."] },
                 { tk: "AVGO", name: "Broadcom Inc.", px: 172.50, vi: 195.00, cat: "green", r: ["Líder clave en semiconductores personalizados para redes de datos.", "Historial impecable de crecimiento de dividendos a largo plazo."] },
                 { tk: "ORCL", name: "Oracle Corporation", px: 168.30, vi: 184.00, cat: "green", r: ["Aceleración masiva en contratos de bases de datos e infraestructura en la nube."] },
@@ -82,7 +82,7 @@
                 { tk: "AAPL", name: "Apple Inc.", px: 224.50, vi: 218.00, cat: "yellow", r: ["Balancín financiero robusto y alta fidelidad de usuarios.", "Valoración exigente frente a un crecimiento moderado de ingresos."] },
                 { tk: "AMD", name: "Advanced Micro Devices", px: 148.60, vi: 142.00, cat: "yellow", r: ["Alternativa sólida en GPUs para IA, pero con márgenes inferiores a Nvidia."] },
                 { tk: "ACN", name: "Accenture plc", px: 345.20, vi: 338.00, cat: "yellow", r: ["Demanda constante en consultoría de transformación digital corporativa."] },
-                { tk: "ADBE", name: "Adobe Inc.", px: 498.40, vi: 485.00, cat: "yellow", r: ["Líder en software creativo con integración exitosa de Firefly."] },
+                { tk: "ADBE", name: "Adobe Inc.", px: 498.40, vi: 485.00, cat: "yellow", r: ["Líder en software creativo con integración de Firefly."] },
                 { tk: "QCOM", name: "Qualcomm Inc.", px: 164.80, vi: 158.00, cat: "yellow", r: ["Diversificación hacia automoción y PCs, pero alta dependencia de smartphones."] },
                 { tk: "INTC", name: "Intel Corporation", px: 22.10, vi: 14.50, cat: "red", r: ["Pérdida estructural de cuota de mercado en CPUs frente a AMD.", "Altas necesidades de capital para fundiciones con márgenes reducidos."] },
                 { tk: "IBM", name: "International Business Machines", px: 214.30, vi: 175.00, cat: "red", r: ["Elevado ratio deuda/capital en comparación con el promedio tecnológico."] },
@@ -91,7 +91,7 @@
                 { tk: "NOW", name: "ServiceNow Inc.", px: 845.00, vi: 710.00, cat: "red", r: ["Cotizando a múltiplos PER históricamente altos para su nivel de crecimiento."] }
             ]},
             "Finanzas": { score: "0.092", actions: [
-                { tk: "JPM", name: "JPMorgan Chase & Co.", px: 212.40, vi: 242.00, cat: "green", r: ["El banco más rentable del mundo con escala inigualable.", "Eficiencia operativa superior y excelente gestión del riesgo crediticio."] },
+                { tk: "JPM", name: "JPMorgan Chase & Co.", px: 212.40, vi: 242.00, cat: "green", r: ["El banco más rentable del mundo con escala inigualable.", "Eficiencia operativa superior y excelente gestión del riesgo."] },
                 { tk: "GS", name: "Goldman Sachs Group", px: 465.00, vi: 510.00, cat: "green", r: ["Líder en banca de inversión, beneficiado por el repunte macro de fusiones."] },
                 { tk: "PGR", name: "The Progressive Corp.", px: 254.10, vi: 280.00, cat: "green", r: ["Líder en seguros de auto con ventajas algorítmicas de tarificación."] },
                 { tk: "AXP", name: "American Express Co.", px: 268.30, vi: 295.00, cat: "green", r: ["Base de clientes de alto poder adquisitivo inmune a desaceleraciones."] },
